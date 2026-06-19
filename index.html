@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>쿠팡 상품등록 14단계 체크리스트 | 대디갓재 쿠팡병법</title>
+<meta name="description" content="광고비 없이 1페이지 가는 쿠팡 상품등록 14단계. 초보도 따라만 하면 되는 체크리스트 + 상품명 빌더·태그 검사기.">
+<style>
+  :root{
+    --red:#e8332e; --red-d:#b8231f; --ink:#1c1c1e; --gray:#6b6b70;
+    --line:#e7e7ea; --bg:#f5f5f7; --card:#ffffff; --ok:#1a9d52; --warn:#d97706;
+    --shadow:0 1px 3px rgba(0,0,0,.06),0 6px 20px rgba(0,0,0,.04);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Malgun Gothic",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.62;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:620px;margin:0 auto;padding:0 16px 120px}
+
+  header{background:linear-gradient(160deg,#1c1c1e,#2c2c2e);color:#fff;padding:30px 20px 26px;border-radius:0 0 22px 22px;box-shadow:var(--shadow)}
+  header .badge{display:inline-block;background:var(--red);color:#fff;font-size:12px;font-weight:800;
+    padding:4px 10px;border-radius:999px;letter-spacing:.3px}
+  header h1{font-size:23px;font-weight:900;margin:12px 0 6px;line-height:1.32}
+  header p{font-size:13.5px;color:#c7c7cc;margin:0}
+  header .by{margin-top:14px;font-size:12.5px;color:#8e8e93}
+  header .by b{color:#fff}
+
+  .progress-card{position:sticky;top:0;z-index:30;background:rgba(245,245,247,.92);backdrop-filter:blur(10px);
+    margin:0 -16px;padding:12px 16px 10px;border-bottom:1px solid var(--line)}
+  .pbar{height:9px;background:#e2e2e6;border-radius:999px;overflow:hidden}
+  .pbar > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--red),#ff7a36);transition:width .35s ease;border-radius:999px}
+  .pmeta{display:flex;justify-content:space-between;align-items:center;margin-top:7px;font-size:12.5px;color:var(--gray)}
+  .pmeta b{color:var(--ink);font-weight:800}
+  .reset{font-size:12px;color:var(--gray);background:none;border:none;text-decoration:underline;cursor:pointer}
+
+  .lead{background:#fff3f3;border:1px solid #f6cfce;border-radius:14px;padding:14px 16px;margin:18px 0;font-size:13.5px;color:var(--red-d)}
+  .lead b{font-weight:800}
+
+  .step{background:var(--card);border:1px solid var(--line);border-radius:16px;margin:12px 0;box-shadow:var(--shadow);overflow:hidden;transition:border-color .2s}
+  .step.done{border-color:#bfe6cd;background:#fbfffc}
+  .step-head{display:flex;align-items:flex-start;gap:12px;padding:15px 16px;cursor:pointer;user-select:none}
+  .chk{flex:0 0 24px;width:24px;height:24px;margin-top:2px;border:2px solid #cfcfd4;border-radius:8px;
+    display:grid;place-items:center;font-size:15px;color:#fff;transition:.15s;background:#fff}
+  .step.done .chk{background:var(--ok);border-color:var(--ok)}
+  .step-head .t{flex:1}
+  .step-head .n{font-size:11.5px;font-weight:800;color:var(--red);letter-spacing:.4px}
+  .step-head h3{margin:2px 0 0;font-size:16px;font-weight:800;line-height:1.4}
+  .caret{flex:0 0 auto;color:#bcbcc2;font-size:13px;margin-top:4px;transition:transform .2s}
+  .step.open .caret{transform:rotate(180deg)}
+  .step-body{display:none;padding:0 16px 16px 52px}
+  .step.open .step-body{display:block}
+  .step-body p{margin:0 0 9px;font-size:14px;color:#36363a}
+  .tip{background:#fff8ec;border-left:3px solid var(--warn);border-radius:0 10px 10px 0;padding:9px 12px;font-size:13px;color:#7a5512;margin:10px 0 0}
+
+  .tool{margin-top:12px;background:#fafafa;border:1px dashed #d6d6db;border-radius:12px;padding:13px}
+  .tool h4{margin:0 0 9px;font-size:13.5px;font-weight:800;color:var(--ink)}
+  .tool label{display:block;font-size:12px;color:var(--gray);margin:8px 0 3px;font-weight:700}
+  .tool input{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:9px;font-size:14px;font-family:inherit}
+  .tool input:focus{outline:none;border-color:var(--red)}
+  .out{margin-top:11px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:11px 12px;font-size:14px}
+  .out .big{font-size:17px;font-weight:900;color:var(--ink);word-break:keep-all;line-height:1.4}
+  .pill{display:inline-block;font-size:12px;font-weight:800;padding:3px 9px;border-radius:999px;margin-left:0}
+  .pill.ok{background:#e3f6ea;color:var(--ok)}
+  .pill.warn{background:#fdecdb;color:var(--warn)}
+  .tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+  .tg{font-size:12.5px;padding:5px 10px;border-radius:999px;background:#eef0f3;color:#333;font-weight:600}
+  .tg.dup{background:#fdecec;color:var(--red-d);text-decoration:line-through}
+  .hint{font-size:11.5px;color:var(--gray);margin-top:6px}
+
+  footer{text-align:center;margin-top:34px;padding:22px;font-size:12.5px;color:var(--gray)}
+  .cta{display:block;background:var(--red);color:#fff;text-align:center;font-weight:800;font-size:15px;
+    padding:15px;border-radius:14px;text-decoration:none;margin:22px 0 6px;box-shadow:var(--shadow)}
+  .cta small{display:block;font-weight:600;font-size:12px;color:#ffd9d7;margin-top:3px}
+  .done-banner{display:none;background:#e3f6ea;border:1px solid #bfe6cd;color:#13713b;
+    text-align:left;padding:15px 16px;border-radius:14px;margin:16px 0;font-size:14px;line-height:1.6}
+  .done-banner.show{display:block}
+  .done-banner b{font-weight:800}
+</style>
+</head>
+<body>
+<header>
+  <span class="badge">쿠팡병법 · 무료 자료</span>
+  <h1>쿠팡 상품등록 14단계 체크리스트</h1>
+  <p>광고비 없이 1페이지 가는 등록법 — 위에서부터 하나씩 따라 하세요.</p>
+  <div class="by">by <b>대디 갓재</b> · 코지피트(Cozypit) 로켓그로스 셀러</div>
+</header>
+
+<div class="wrap">
+  <div class="progress-card">
+    <div class="pbar"><i id="pfill"></i></div>
+    <div class="pmeta">
+      <span><b id="pcount">0</b> / <span id="ptotal">14</span>단계 완료</span>
+      <button class="reset" id="resetBtn">처음부터</button>
+    </div>
+  </div>
+
+  <div class="lead">
+    상품 올렸는데 검색해도 안 보이는 이유, 대부분 <b>등록 방식</b>에 있어요.
+    아래 14단계만 빠짐없이 따라 하면 됩니다. 어려운 말 없으니 천천히 하나씩. (체크는 이 폰에 자동 저장돼요.)
+  </div>
+
+  <div id="steps"></div>
+
+  <div class="done-banner" id="doneBanner">
+    🎉 등록 끝! 근데 <b>진짜 시작은 지금부터</b>예요.<br>
+    등록 후 <b>3~5일 안에 얼마나 팔리느냐(신규성 점수)</b>가 내 순위를 좌우합니다.
+    그래서 결국 <b>잘 팔릴 '차별화 상품'</b>을 찾는 게 핵심이에요.
+  </div>
+
+  <a class="cta" id="ctaLink" href="https://open.kakao.com/o/pAnuH13h" target="_blank" rel="noopener">
+    쿠팡병법 무료 단톡방 들어가기
+    <small>여기서 마진계산기 + 무료 라이브 안내 받기</small></a>
+
+  <footer>
+    이 체크리스트는 쿠팡병법(대디갓재) 무료 자료입니다.<br>
+    지피지기 백전불태 · 감이 아닌 숫자·기준
+  </footer>
+</div>
+
+<script>
+/* ===== 갓재 상품등록 14단계 ===== */
+const STEPS = [
+  { n:"STEP 01", t:"카탈로그 매칭 — 매칭으로는 안 판다",
+    p:"등록 첫 화면 '카탈로그 매칭'은 남이 잘 파는 상품에 묻어가는 기능이에요. 우리는 이걸로 팔지 않습니다. 대신 키워드 검색 → '조회수순'을 누르면 상위 판매자들의 최근 28일 조회수가 보여요. 내 시장이 얼마나 큰지 가늠하는 데만 씁니다.",
+    tip:"뺏어서 파는 건 잠깐이에요. 오래 가는 사업은 내 상품으로 합니다." },
+
+  { n:"STEP 02", t:"판매방식 — 윙 + 로켓그로스 둘 다 체크",
+    p:"판매자배송(윙)과 로켓그로스, 둘 다 체크하세요. 소비자가 쿠팡을 쓰는 이유는 '내일 받는 로켓배송'이라, 우리는 로켓그로스로 파는 게 맞습니다.",
+    tip:null },
+
+  { n:"STEP 03", t:"노출 상품명 — 예쁘게 말고 '키워드'로",
+    p:"브랜드 있으면 입력, 없으면 '브랜드 없음' 체크(처음엔 거의 다 없음). 상품명은 내 맘대로 예쁘게 짓는 게 아니라, 고객이 실제로 검색하는 단어(키워드)로 만듭니다. 자동완성·연관검색어에서 키워드를 모아 3~5개만 깔끔하게.",
+    tip:"길게 주저리주저리 = 옛날 방식. 짧고 정확하게. (송장에 찍히는 관리용 상품명은 따로 짧게 바꿔요.)",
+    tool:"namebuilder" },
+
+  { n:"STEP 04", t:"카테고리 — '매칭하기' 메뉴에서 확인",
+    p:"내 대표 키워드를 넣어 바로 뜨면 선택. 여러 개 뜨거나 헷갈리면 1번 '카탈로그 매칭' 메뉴에서 확인하세요. 고객에게 보이는 카테고리와 판매자용 카테고리가 다른 경우가 많거든요.",
+    tip:"카테고리를 최종 선택하면, 그 카테고리의 정확한 수수료까지 바로 떠요." },
+
+  { n:"STEP 05", t:"옵션 — 물음표(도움말)는 꼭 읽기",
+    p:"카테고리마다 옵션 종류가 달라요. 입력칸의 물음표를 누르면 '이렇게 넣으세요' 설명이 나옵니다. 초보일수록 한 번 꼭 읽어보세요. 색상은 예시 단어 그대로 쓰고(흰색 ❌ → 화이트 ⭕, '펄화이트'는 괜찮음), 사이즈·수량도 입력합니다.",
+    tip:null },
+
+  { n:"STEP 06", t:"판매가 — 마진계산기 숫자 그대로",
+    p:"무료 라이브에서 드리는 마진계산기에 나온 정상가·판매가를 그대로 넣으면 됩니다. 자동 가격조정은 그냥 켜두세요.",
+    tip:"가격은 감으로 넣는 게 아니에요. 1개 팔아 얼마 남는지 보고 시작합니다." },
+
+  { n:"STEP 07", t:"상품 이미지 — 대표 1장 + 추가 9칸 꽉",
+    p:"대표 이미지는 '클릭'을 만드는 가장 중요한 칸이에요. 쿠팡 규정상 흰 배경에 제품만 넣습니다. 내 키워드로 검색해보고 1페이지가 다 흰배경이면 똑같이, 아직 배경 있는 이미지가 많은 카테고리면 그대로 따라가면 돼요. 추가 이미지는 9칸을 꽉 채우세요.",
+    tip:"추가 이미지 비워두면 손해예요. 사용 장면 등으로 9칸 다 채우는 게 노출·클릭에 유리합니다." },
+
+  { n:"STEP 08", t:"상세설명 — 예쁘게 말고 '설득'",
+    p:"상세페이지는 고객을 설득하는 칸이에요. 예쁘고 비싸게 만든다고 팔리는 게 아니라, 고객이 원하는 걸 보여줘야 합니다. 특히 고객은 쓱쓱 내리다가 '영상'에서 멈춰요. 남들 1개 넣을 때 영상은 3~5개 넣으세요.",
+    tip:"만든 상세 이미지는 그대로 등록하면 돼요. (상세 만드는 법은 지난 영상 참고)" },
+
+  { n:"STEP 09", t:"상품 주요정보 — 제조사·인증번호",
+    p:"제조사에 브랜드명을 한 번 더 넣고, 상품 구성(동일/혼합)을 선택합니다. 가전·유아용품처럼 인증 대상이면 인증번호를 넣어요. 국내 소싱이면 도매사이트에, 없으면 샘플 박스나 판매자 문의로 확인할 수 있어요.",
+    tip:null },
+
+  { n:"STEP 10", t:"검색어(태그) — 20칸 꽉, 단 겹치지 않게",
+    p:"태그도 아무거나 넣으면 안 돼요. 고객이 진짜 검색하는 단어로 20개를 채웁니다(찾는 법은 상품명과 똑같아요). 단, 상품명에 이미 쓴 단어는 빼세요(겹치면 낭비). 모자라면 1페이지 '판매량순' 상품들 이름에서 더 뽑으면 됩니다.",
+    tip:"신일·루메나 같은 브랜드 키워드는, 내 상품이 가격·차별성으로 이길 자신 있을 때만 넣어요.",
+    tool:"tagcheck" },
+
+  { n:"STEP 11", t:"검색필터 — 빠짐없이 다 체크",
+    p:"상위노출의 핵심은 '빠짐없이 채우기'예요. 내 상품과 맞는 항목은 하나도 빼놓지 말고 체크하고, 관련 없는 항목은 해제하세요.",
+    tip:"거꾸로 꿀팁: 소싱할 때 이 필터 항목을 많이 만족하는 상품을 고르면, 그게 곧 차별화되면서 노출도 잘 되는 상품이에요." },
+
+  { n:"STEP 12", t:"정보제공고시 — '상세 참조'는 절대 금지",
+    p:"구매대행·위탁 배우신 분들은 여기를 '상세페이지 참조'로 넘기라 배웠을 텐데, 절대 안 됩니다. 이 항목 하나하나가 상위노출 점수예요. 소싱처 사이트를 보고 빠짐없이 기입하세요.",
+    tip:"아무도 안 알려주는 꿀팁: 전화번호 칸엔 진짜 받을 수 있는 번호를 넣으세요. 제품 문의·대량주문 문의가 직접 옵니다. (로켓그로스 약점인 '고객과의 단절'을 메우는 길)" },
+
+  { n:"STEP 13", t:"배송 — 무료배송 + 출고는 빠를수록",
+    p:"출고지는 주소록에서 추가하면 됩니다(사업자든 집이든 상관없음). 배송비는 무조건 '무료배송'으로(쿠팡이 점수를 더 줘요). 출고 소요일은 빠를수록 점수가 높고, 당일출고가 가능하면 체크하세요.",
+    tip:"단, 당일출고를 약속하고 못 지키면 패널티예요. 지킬 수 있을 때만 체크하세요." },
+
+  { n:"STEP 14", t:"반품/교환 — 진짜 받는 주소로",
+    p:"출고지는 아무 데나 괜찮지만, 반품지는 실제로 물건을 받을 수 있는 주소로 하세요. 고객이 직접 포장해서 택배로 보내는 경우가 있거든요. 집 주소로 해도 아무 문제 없으니 걱정 마세요. 초도·반품 배송비는 똑같이 4,000원으로 넣으면 됩니다.",
+    tip:null },
+];
+
+const wrap = document.getElementById('steps');
+const KEY = 'gotjae_cp_seo_v2';
+let state = {};
+try{ state = JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){ state={}; }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+
+STEPS.forEach((s,i)=>{
+  const el = document.createElement('div');
+  el.className = 'step' + (state['c'+i]?' done':'');
+  el.innerHTML = `
+    <div class="step-head" data-i="${i}">
+      <div class="chk">✓</div>
+      <div class="t"><div class="n">${s.n}</div><h3>${s.t}</h3></div>
+      <div class="caret">▼</div>
+    </div>
+    <div class="step-body">
+      <p>${s.p}</p>
+      ${s.tip? `<div class="tip">💡 ${s.tip}</div>`:''}
+      ${s.tool? `<div class="tool" data-tool="${s.tool}"></div>`:''}
+    </div>`;
+  wrap.appendChild(el);
+});
+
+wrap.addEventListener('click', e=>{
+  const head = e.target.closest('.step-head'); if(!head) return;
+  const i = head.dataset.i, step = head.parentElement;
+  if(e.target.closest('.chk')){
+    state['c'+i] = !state['c'+i];
+    step.classList.toggle('done', !!state['c'+i]);
+    save(); updateProgress();
+  } else {
+    step.classList.toggle('open');
+  }
+});
+
+function updateProgress(){
+  const total = STEPS.length;
+  let done = 0; for(let i=0;i<total;i++) if(state['c'+i]) done++;
+  document.getElementById('pcount').textContent = done;
+  document.getElementById('ptotal').textContent = total;
+  document.getElementById('pfill').style.width = (done/total*100)+'%';
+  document.getElementById('doneBanner').classList.toggle('show', done===total);
+}
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm('체크 기록을 전부 지울까요?')) return;
+  state={}; save();
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('done'));
+  updateProgress();
+});
+updateProgress();
+
+/* ===== 도구 2개 ===== */
+function mountTools(){
+  document.querySelectorAll('.tool').forEach(t=>{
+    if(t.dataset.tool==='namebuilder') t.innerHTML = NAME_HTML;
+    if(t.dataset.tool==='tagcheck')   t.innerHTML = TAG_HTML;
+  });
+  bindName(); bindTag();
+}
+
+/* 상품명 빌더: 메인 키워드 + 보조 키워드 */
+const NAME_HTML = `
+  <h4>🛠 상품명 만들어보기 (키워드 3~5개)</h4>
+  <label>메인 키워드 (대표 단어)</label>
+  <input id="nb_main" placeholder="예) 무선 선풍기">
+  <label>보조 키워드 (자동완성·연관검색어, 띄어쓰기로 구분)</label>
+  <input id="nb_sub" placeholder="예) 탁상용 미니 저소음">
+  <div class="out">
+    <div class="big" id="nb_out">무선 선풍기 탁상용 미니 저소음</div>
+    <div id="nb_count" style="margin-top:7px"></div>
+  </div>
+  <div class="hint">단어 3~5개가 적당해요. 너무 많으면 핵심이 흐려집니다.</div>`;
+
+function bindName(){
+  const m=document.getElementById('nb_main'), s=document.getElementById('nb_sub');
+  if(!m) return;
+  const render=()=>{
+    const txt = [(m.value||'').trim(),(s.value||'').trim()].filter(Boolean).join(' ')
+      .replace(/\s+/g,' ').trim() || '무선 선풍기 탁상용 미니 저소음';
+    document.getElementById('nb_out').textContent = txt;
+    const w = txt.split(' ').filter(Boolean).length;
+    let cls='ok', msg=w+'단어 · 적당해요';
+    if(w<3){cls='warn';msg=w+'단어 · 조금 짧아요';}
+    else if(w>5){cls='warn';msg=w+'단어 · 5개 안으로 줄여요';}
+    document.getElementById('nb_count').innerHTML = `<span class="pill ${cls}">${msg}</span>`;
+  };
+  [m,s].forEach(x=>x.addEventListener('input',render)); render();
+}
+
+/* 태그 검사기: 상품명과 겹치는 태그 잡아주기 */
+const TAG_HTML = `
+  <h4>🛠 태그 검사기 (상품명과 겹치면 빼기)</h4>
+  <label>내 상품명 (위에서 정한 것)</label>
+  <input id="tg_title" placeholder="무선 선풍기 탁상용 미니 저소음">
+  <label>넣을 태그 (쉼표 또는 띄어쓰기로 구분)</label>
+  <input id="tg_input" placeholder="휴대용선풍기, 캠핑선풍기, 책상선풍기, 저소음팬">
+  <div class="tag-list" id="tg_list"></div>
+  <div id="tg_count" style="margin-top:9px"></div>
+  <div class="hint">빨간 줄 = 상품명에 이미 쓴 단어라 낭비예요. 회색만 넣으세요. (최대 20개)</div>`;
+
+function bindTag(){
+  const title=document.getElementById('tg_title'), input=document.getElementById('tg_input');
+  if(!title) return;
+  const render=()=>{
+    const titleWords = (title.value||'').toLowerCase().replace(/,/g,' ').split(/\s+/).filter(Boolean);
+    const tags = (input.value||'').split(/[,\n]/).map(s=>s.trim()).filter(Boolean);
+    const list=document.getElementById('tg_list'); list.innerHTML='';
+    let good=0;
+    tags.forEach(tag=>{
+      const low=tag.toLowerCase().replace(/\s+/g,'');
+      const dup = titleWords.some(w=> w && (low.includes(w)||w.includes(low)) );
+      const span=document.createElement('span');
+      span.className='tg'+(dup?' dup':''); span.textContent=tag;
+      list.appendChild(span);
+      if(!dup) good++;
+    });
+    const cls = good>20?'warn':'ok';
+    const msg = good>20 ? good+'개 · 20개를 넘었어요' : '넣을 수 있는 태그 '+good+'개 / 20';
+    document.getElementById('tg_count').innerHTML = tags.length? `<span class="pill ${cls}">${msg}</span>`:'';
+  };
+  [title,input].forEach(x=>x.addEventListener('input',render));
+}
+
+mountTools();
+</script>
+</body>
+</html>
